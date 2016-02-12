@@ -42,6 +42,28 @@ boolean SFE_TSL2561::begin(char i2c_address)
 	return(true);
 }
 
+boolean SFE_TSL2561::begin(int sda, int scl)
+        // Initialize TSL2561 library with default address (0x39)
+	// and set SDA and SCL pins for ESP8266 boards.
+        // Always return true
+{
+        return(begin(TSL2561_ADDR, sda, scl));
+}
+
+boolean SFE_TSL2561::begin(char i2c_address, int sda, int scl)
+	// Initialize TSL2561 library to arbitrary address or:
+	// TSL2561_ADDR_0 (0x29 address with '0' shorted on board)
+	// TSL2561_ADDR   (0x39 default address)
+	// TSL2561_ADDR_1 (0x49 address with '1' shorted on board)
+	// and set SDA and SCL pins for ESP8266 boards.
+        // Always return true
+{
+	_i2c_address = i2c_address;
+        Wire.begin(sda, scl);
+        return(true);
+}
+
+
 
 boolean SFE_TSL2561::setPowerUp(void)
 	// Turn on TSL2561, begin integrations
